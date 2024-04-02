@@ -4,6 +4,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.Select;
 
 import com.e2etests.automation.utils.ConfigFileReader;
 import com.e2etests.automation.utils.Setup;
@@ -12,15 +13,17 @@ public class RegistrePage {
 	
 	private ConfigFileReader configfilereader; 
 
-	
 	/*@FindBy*/
+	@FindBy(how = How.XPATH, using = "//a[contains(text(), 'REGISTER')]")
+	public static WebElement lien;
+	
 	@FindBy(how = How.NAME, using = "firstName")
 	public static WebElement firstname;
 	
 	@FindBy(how = How.NAME, using = "lastName")
 	public static WebElement lastName;
 	
-	@FindBy(how = How.NAME, using = "phone")
+	@FindBy(how = How.XPATH, using = "//input[contains(@name, 'phone')]")
 	public static WebElement phone;
 	
 	@FindBy(how = How.ID, using = "userName")
@@ -53,20 +56,23 @@ public class RegistrePage {
 	@FindBy(how = How.NAME, using = "submit")
 	public static WebElement btnsoumettre;
 	
-	@FindBy(how = How.TAG_NAME, using = "p")
+	@FindBy(how = How.XPATH, using = "//b[contains(text(),'Note: Your user name is')]")
 	public static WebElement message;
+	
 	
 	//creation  constructor
 	public RegistrePage() {
 		PageFactory.initElements(Setup.driver,this);
 		this.configfilereader = new ConfigFileReader();
 	}
-	
-	
-	
+		
 	public void goToUrl() {
 			Setup.getDriver().get(configfilereader.getProperties("home.url"));
 		}
+	public void clickOnRegistreButton() {
+		lien.click();
+		}
+
 	
 	public void fillFirstName(String name) {
 		firstname.sendKeys(name);
@@ -79,10 +85,11 @@ public class RegistrePage {
 	public void fillPhone(String phonetel) {
 		phone.sendKeys(phonetel);
 		}
-	
-	public void fillUserName(String UserName) {
-		userName.sendKeys(UserName);
+	public void fillEmail(String Email) {
+		email.sendKeys(Email);
 		}
+
+	
 	
 	public void fillAddress1(String address) {
 		address1.sendKeys(address);
@@ -102,10 +109,12 @@ public class RegistrePage {
 	
 	public void fillCountry(String Country) {
 		country.sendKeys(Country);
+		//Select countryDropDown = new Select(country);
+		//countryDropDown.selectByVisibleText(Country);	
 		}
 	
-	public void fillEmail(String Email) {
-		email.sendKeys(Email);
+	public void fillUserName(String UserName) {
+		userName.sendKeys(UserName);
 		}
 	
 	public void fillPassword(String mot) {
